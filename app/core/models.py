@@ -3,8 +3,6 @@ from django.contrib.auth.models import AbstractBaseUser, \
                                         BaseUserManager, \
                                         PermissionsMixin
 
-from django.conf import settings
-
 
 class UserManager(BaseUserManager):
 
