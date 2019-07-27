@@ -92,7 +92,7 @@ class PublicUserApiTests(TestCase):
 
     def test_create_token_missing_field(self):
         """Test that email and password are required"""
-        res = self.client.post(TOKEN_URL,{
+        res = self.client.post(TOKEN_URL, {
             'email': 'one',
             'password': ''
         })
@@ -122,7 +122,7 @@ class PrivateUserApiTests(TestCase):
         res = self.client.get(URL_ME)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.data,{
+        self.assertEqual(res.data, {
             'name': self.user.name,
             'email': self.user.email
         })
@@ -131,7 +131,7 @@ class PrivateUserApiTests(TestCase):
         """"Test that POST is not allowed on me url"""
         res = self.client.post(URL_ME, {})
 
-        self.assertEqual(res.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)    
+        self.assertEqual(res.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def test_update_user_profile(self):
         """Test updating the user profile for authenticated user"""
@@ -141,7 +141,6 @@ class PrivateUserApiTests(TestCase):
         }
 
         res = self.client.patch(URL_ME, payload)
-        
         self.user.refresh_from_db()
         self.assertEqual(self.user.name, payload['name'])
         self.assertTrue(self.user.check_password(payload['password']))
